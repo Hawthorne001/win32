@@ -1,9 +1,9 @@
 ---
-description: The following tables describe IPPROTO\_IP socket options that apply to sockets created for the IPv4 address family (AF\_INET). See the getsockopt and setsockopt function reference pages for more information on getting and setting socket options.
-ms.assetid: 6b06a29e-59cd-4446-bd2f-131dc25bf571
 title: IPPROTO_IP socket options
+description: The following tables describe IPPROTO\_IP socket options that apply to sockets created for the IPv4 address family (AF\_INET). See the getsockopt and setsockopt function reference pages for more information on getting and setting socket options.
+ms.date: 10/25/2024
+ms.assetid: 6b06a29e-59cd-4446-bd2f-131dc25bf571
 ms.topic: article
-ms.date: 10/02/2019
 ---
 
 # IPPROTO\_IP socket options
@@ -40,6 +40,7 @@ Some socket options require more explanation than these tables can convey; such 
 | IP\_RECEIVE\_BROADCAST | yes | yes | DWORD (boolean) | Allows or blocks broadcast reception. |
 | IP\_RECVIF | yes | yes | DWORD (boolean) | Indicates whether the IP stack should populate the control buffer with details about which interface received a packet with a datagram socket. When this value is true, the [**LPFN_WSARECVMSG (WSARecvMsg)**](/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg) function will return optional control data containing the interface where the packet was received for datagram sockets. This option allows the IPv4 interface where the packet was received to be returned in the [**WSAMSG**](/windows/desktop/api/Ws2def/ns-ws2def-wsamsg) structure.  This option is only valid on datagram and raw sockets (the socket type must be SOCK\_DGRAM or SOCK\_RAW). |
 | IP\_RECVTOS | yes | yes | DWORD (boolean) | Indicates whether the IP stack should populate the control buffer with a message containing the Type of Service (TOS) IPv4 header field on a received datagram. When this value is true, the [**LPFN_WSARECVMSG (WSARecvMsg)**](/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg) function will return optional control data containing the TOS IPv4 header field value of the received datagram.  This option allows the TOS IPv4 header field of the received datagram to be returned in the [**WSAMSG**](/windows/desktop/api/Ws2def/ns-ws2def-wsamsg) structure. The returned message type will be IP\_TOS. All DSCP and ECN bits of the TOS field will be returned.  This option is only valid on datagram sockets (the socket type must be SOCK\_DGRAM).  |
+| IP\_RECVECN | yes | yes | DWORD (boolean) | Indicates whether the IP stack should populate the control buffer with a message containing the ECN bits of the Type of Service (TOS) IPv4 header field on a received datagram. When this value is true, the [**LPFN_WSARECVMSG (WSARecvMsg)**](/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg) function will return optional control data containing the ECN bits of the TOS IPv4 header field value of the received datagram.  This option allows the ECN bits of the TOS IPv4 header field of the received datagram to be returned in the [**WSAMSG**](/windows/desktop/api/Ws2def/ns-ws2def-wsamsg) structure. The returned message type will be IP\_ECN. All 2 ECN bits of the TOS field will be returned. This option is only valid on datagram and raw sockets (the socket type must be SOCK\_DGRAM or SOCK\_RAW). For type-safety, you should use the [**WSAGetRecvIPEcn**](/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsagetrecvipecn) and [**WSASetRecvIPEcn**](/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsasetrecvipecn) functions instead of using the socket option directly. |
 | IP\_RECVTTL | yes | yes | DWORD (boolean) | Indicates that hop (TTL) information should be returned in the [**LPFN_WSARECVMSG (WSARecvMsg)**](/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg) function. If *optval* is set to **1** on the call to [**setsockopt**](/windows/desktop/api/winsock/nf-winsock-setsockopt), the option is enabled. If set to **0**, the option is disabled.  This option is only valid for datagram and raw sockets (the socket type must be SOCK\_DGRAM or SOCK\_RAW). |
 | IP\_TOS | yes | yes | DWORD (boolean) | Do not use. Type of Service (TOS) settings should only be set using the Quality of Service API. See [Differentiated Services](/previous-versions/windows/desktop/qos/differentiated-services) in the Quality of Service section of the Platform SDK for more information. |
 | IP\_TTL | yes | yes | DWORD (boolean) | Changes the default value set by the TCP/IP service provider in the TTL field of the IP header in outgoing datagrams. IP\_TTL support is not required; to check whether IP\_TTL is supported, use [**getsockopt**](/windows/desktop/api/winsock/nf-winsock-getsockopt) to get current options. If **getsockopt** fails, IP\_TTL is not supported. |
@@ -54,59 +55,59 @@ Some socket options require more explanation than these tables can convey; such 
 | Option | Windows 10 | Windows 8 | Windows Server 2012 | Windows 7 | Windows Server 2008 | Windows Vista |
 |-|-|-|-|-|-|-|
 | IP_ADD_IFLIST | Starting with Windows 10, version 1803 | | | | | |
-| IP\_ADD\_MEMBERSHIP | x | x | x | x | x | x |
-| IP\_ADD\_SOURCE\_MEMBERSHIP | x | x | x | x | x | x |
-| IP\_BLOCK\_SOURCE | x | x | x | x | x | x |
+| IP\_ADD\_MEMBERSHIP | yes | yes | yes | yes | yes | yes |
+| IP\_ADD\_SOURCE\_MEMBERSHIP | yes | yes | yes | yes | yes | yes |
+| IP\_BLOCK\_SOURCE | yes | yes | yes | yes | yes | yes |
 | IP_DEL_IFLIST | Starting with Windows 10, version 1803 | | | | | |
-| IP\_DONTFRAGMENT | x | x | x | x | x | x |
-| IP\_DROP\_MEMBERSHIP | x | x | x | x | x | x |
-| IP\_DROP\_SOURCE\_MEMBERSHIP | x | x | x | x | x | x |
+| IP\_DONTFRAGMENT | yes | yes | yes | yes | yes | yes |
+| IP\_DROP\_MEMBERSHIP | yes | yes | yes | yes | yes | yes |
+| IP\_DROP\_SOURCE\_MEMBERSHIP | yes | yes | yes | yes | yes | yes |
 | IP_GET_IFLIST | Starting with Windows 10, version 1803 | | | | | |
-| IP\_HDRINCL | x | x | x | x | x | x |
+| IP\_HDRINCL | yes | yes | yes | yes | yes | yes |
 | IP_IFLIST | Starting with Windows 10, version 1803 | | | | | |
-| IP\_MULTICAST\_IF | x | x | x | x | x | x |
-| IP\_MULTICAST\_LOOP | x | x | x | x | x | x |
-| IP\_MULTICAST\_TTL | x | x | x | x | x | x |
-| IP\_OPTIONS | x | x | x | x | x | x |
-| IP\_ORIGINAL\_ARRIVAL\_IF | x | x | x | x | | |
-| IP\_PKTINFO | x | x | x | x | x | x |
-| IP\_RECEIVE\_BROADCAST | x | x | x | x | x | x |
-| IP\_RECVIF | Starting with Windows 10, version 1703 | x | x | x | x | x |
-| IP\_RECVTTL | x | | | | | |
-| IP\_TOS | x | x | x | | | |
-| IP\_TTL | x | x | x | x | x | x |
-| IP\_UNBLOCK\_SOURCE | x | x | x | x | x | x |
-| IP\_UNICAST\_IF | x | x | x | x | x | x |
-| IP\_WFP\_REDIRECT\_CONTEXT | x | x | x | | | |
-| IP\_WFP\_REDIRECT\_RECORDS | x | x | x | | | |
+| IP\_MULTICAST\_IF | yes | yes | yes | yes | yes | yes |
+| IP\_MULTICAST\_LOOP | yes | yes | yes | yes | yes | yes |
+| IP\_MULTICAST\_TTL | yes | yes | yes | yes | yes | yes |
+| IP\_OPTIONS | yes | yes | yes | yes | yes | yes |
+| IP\_ORIGINAL\_ARRIVAL\_IF | yes | yes | yes | yes | | |
+| IP\_PKTINFO | yes | yes | yes | yes | yes | yes |
+| IP\_RECEIVE\_BROADCAST | yes | yes | yes | yes | yes | yes |
+| IP\_RECVIF | Starting with Windows 10, version 1703 | yes | yes | yes | yes | yes |
+| IP\_RECVTTL | yes | | | | | |
+| IP\_TOS | yes | yes | yes | | | |
+| IP\_TTL | yes | yes | yes | yes | yes | yes |
+| IP\_UNBLOCK\_SOURCE | yes | yes | yes | yes | yes | yes |
+| IP\_UNICAST\_IF | yes | yes | yes | yes | yes | yes |
+| IP\_WFP\_REDIRECT\_CONTEXT | yes | yes | yes | | | |
+| IP\_WFP\_REDIRECT\_RECORDS | yes | yes | yes | | | |
 
 <br/>
 
 | Option | Windows Server 2003 | Windows XP |
 |-|-|-|
 | IP_ADD_IFLIST | | |
-| IP\_ADD\_MEMBERSHIP | x | x |
-| IP\_ADD\_SOURCE\_MEMBERSHIP | x | x |
-| IP\_BLOCK\_SOURCE | x | x |
+| IP\_ADD\_MEMBERSHIP | yes | yes |
+| IP\_ADD\_SOURCE\_MEMBERSHIP | yes | yes |
+| IP\_BLOCK\_SOURCE | yes | yes |
 | IP_DEL_IFLIST | | |
-| IP\_DONTFRAGMENT | x | x |
-| IP\_DROP\_MEMBERSHIP | x | x |
-| IP\_DROP\_SOURCE\_MEMBERSHIP | x | x |
+| IP\_DONTFRAGMENT | yes | yes |
+| IP\_DROP\_MEMBERSHIP | yes | yes |
+| IP\_DROP\_SOURCE\_MEMBERSHIP | yes | yes |
 | IP_GET_IFLIST | | |
-| IP\_HDRINCL | x | x |
+| IP\_HDRINCL | yes | yes |
 | IP_IFLIST | | |
-| IP\_MULTICAST\_IF | x | x |
-| IP\_MULTICAST\_LOOP | x | x |
-| IP\_MULTICAST\_TTL | x | x |
-| IP\_OPTIONS | x | x |
+| IP\_MULTICAST\_IF | yes | yes |
+| IP\_MULTICAST\_LOOP | yes | yes |
+| IP\_MULTICAST\_TTL | yes | yes |
+| IP\_OPTIONS | yes | yes |
 | IP\_ORIGINAL\_ARRIVAL\_IF | | |
-| IP\_PKTINFO | x | x |
-| IP\_RECEIVE\_BROADCAST | x | x |
+| IP\_PKTINFO | yes | yes |
+| IP\_RECEIVE\_BROADCAST | yes | yes |
 | IP\_RECVIF | | |
 | IP\_RECVTTL | | |
 | IP\_TOS | | |
-| IP\_TTL | x | x |
-| IP\_UNBLOCK\_SOURCE | x | x |
+| IP\_TTL | yes | yes |
+| IP\_UNBLOCK\_SOURCE | yes | yes |
 | IP\_UNICAST\_IF | | |
 | IP\_WFP\_REDIRECT\_CONTEXT | | |
 | IP\_WFP\_REDIRECT\_RECORDS | | |
