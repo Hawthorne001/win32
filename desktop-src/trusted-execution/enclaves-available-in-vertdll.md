@@ -4,10 +4,12 @@ ms.assetid: 8e5588b6-0b1a-4ba6-9729-33f4e41e867c
 title: Vertdll APIs available in VBS enclaves
 titleSuffix: Secure Enclaves
 ms.topic: article
-ms.date: 01/29/2024
+ms.date: 11/20/2024
 ---
 
 # Vertdll APIs available in VBS enclaves
+
+[!INCLUDE [enclaves-os-reqs.md](../includes/enclaves-os-reqs.md)]
 
 Enclaves are used to create trusted execution environments. These Vertdll APIs are available to developers in VBS enclaves.
 
@@ -107,8 +109,8 @@ The following APIs exported by Vertdll.dll are available to be called in VBS enc
 | [EnclaveSealData](/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavesealdata) | winenclaveapi.h | Generates an encrypted binary large object (blob) from unencypted data. |
 | [EnclaveUnsealData](/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveunsealdata) | winenclaveapi.h | Decrypts an encrypted binary large object (blob). |
 | [EnclaveVerifyAttestationReport](/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveverifyattestationreport) | winenclaveapi.h | Verifies an attestation report that was generated on the current system. |
-| [WideCharToMultiByte](/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte) | stringapiset.h | Maps a UTF-16 (wide character) string to a new character string. |
-| [MultiByteToWideChar](/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar) | stringapiset.h | Maps a character string to a UTF-16 (wide character) string. |
+| [WideCharToMultiByte](/windows/win32/api/stringapiset/nf-stringapiset-widechartomultibyte) | stringapiset.h | Maps a UTF-16 (wide character) string to a new character string.<br><br>**Note:** The only code page available to VBS Enclaves is **CP_UTF8**. |
+| [MultiByteToWideChar](/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar) | stringapiset.h | Maps a character string to a UTF-16 (wide character) string.<br><br>**Note:** The only code page available to VBS Enclaves is **CP_UTF8**. |
 | LdrResolveDelayLoadedAPI<br>See [ResolveDelayLoadedAPI](/windows/win32/devnotes/resolvedelayloadedapi) | - | Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation. |
 
 ## See also
